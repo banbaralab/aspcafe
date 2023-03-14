@@ -7,7 +7,7 @@ R.Takeuchi, M.Banbara, N.Tamura, and T.Schaub.
 Solving Vehicle Equipment Specification Problems with Answer Set Programming.
 Proceedings of the 25th International Symposium on Practical Aspects of Declarative Languages
 (PADL 2023), LNCS Vol.13880, pp.232–249, 2023.
-DOI: [10.1007/978-3-031-24841-2_15](dx.doi.org/10.1007/978-3-031-24841-2_15)
+DOI: [10.1007/978-3-031-24841-2_15](http://dx.doi.org/10.1007/978-3-031-24841-2_15)
 
 ## Required Environment
 - clingo (for basic and optimized encoding)
