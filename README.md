@@ -12,7 +12,7 @@ DOI: [10.1007/978-3-031-24841-2_15](http://dx.doi.org/10.1007/978-3-031-24841-2_
 ### Requirements
 - [clingo](https://potassco.org/clingo/) (version 5.5 or higher)
 - [asprin](https://potassco.org/asprin/) (version 3.1.1 or higher)
-- python3.5 (only for solution checker)
+- python 3 (only for solution checker)
 
 ### Usage
 
@@ -26,8 +26,7 @@ $ clingo vehicle_design_basic.lp encoding/tableSV.lp encoding/tableFE.lp benchma
 ```
 $ clingo vehicle_design_optimized.lp encoding/tableSV.lp encoding/tableFE.lp benchmark/ovm.lp
 ```
-	
-if you want to enumerate optima, add clingo's option `--opt-mode=optN`
+The clingo's option `--opt-mode=optN` allow for enumerating optima.
   
 #### Multi-objective CAFE Problem
 - Extended encoding
