@@ -1,4 +1,5 @@
 # aspcafe
+aspcafe is a collection of ASP encodings for solving ...
 CAFE Problems Solver Based on ASP
 
 ## Required Environment
