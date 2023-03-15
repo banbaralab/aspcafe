@@ -26,15 +26,15 @@ $ clingo vehicle_design_basic.lp encoding/tableSV.lp encoding/tableFE.lp benchma
 ```
 $ clingo vehicle_design_optimized.lp encoding/tableSV.lp encoding/tableFE.lp benchmark/ovm.lp
 ```
-The clingo's option `--opt-mode=optN` allow for enumerating optima.
+The clingo's option `--opt-mode=optN` allows for enumerating optima.
   
 #### Multi-objective CAFE Problem
 - Extended encoding
 ```
 $ asprin vehicle_design_extended.lp encoding/tableSV.lp encoding/tableFE.lp benchmark/ovm.lp -n 0
 ```
-	
-#### Check Answer
+
+#### Solution checker
 Write the solutions of clingo or asprin obtained by the above command into the file, 
 and execute the following command
 ```
