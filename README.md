@@ -32,3 +32,4 @@ The clingo's option `--opt-mode=optN` allows for enumerating optima.
 $ asprin vehicle_design_extended.lp encoding/tableSV.lp encoding/tableFE.lp benchmark/ovm.lp -n 0
 ```
 
+#### Multi-objective CAFE Problem considering Minimal Perturbation
