@@ -19,7 +19,10 @@ DOI: [10.1007/978-3-031-24841-2_15](http://dx.doi.org/10.1007/978-3-031-24841-2_
 #### Mono-objective CAFE Problem
 
 ```
-$ clingo aspcafe_optimized.lp encoding/tableSV.lp encoding/tableFE.lp benchmark/ovm.lp
+$ clingo aspcafe_optimized.lp benchmark/tableSV.lp benchmark/tableFE.lp benchmark/ovm.lp --config=trendy -c t=85 > ovm.log
+$ python3 bin/check_ans_opt.py ovm.log
+.....
+.....
 ```
 The clingo's option `--opt-mode=optN` allows for enumerating optima.
   
@@ -29,8 +32,3 @@ The clingo's option `--opt-mode=optN` allows for enumerating optima.
 $ asprin vehicle_design_extended.lp encoding/tableSV.lp encoding/tableFE.lp benchmark/ovm.lp -n 0
 ```
 
-#### Solution checker
-
-```
-$ python bin/check_ans_opt.py file
-```
