@@ -75,7 +75,6 @@ def get_vp_dic(list):
                             g_list[int(g.group(2))-1] = 1
                     v_d[v.group(1)] = g_list
             vp_d[vp.group(1)] = v_d
-    #print (vp_d)
     return vp_d
 
 #########################################################
@@ -96,6 +95,7 @@ def get_vp_list(list):
 #########################################################
 def get_table(dic):
     table = []
+    output_table = ""
     v=0
     l = []
     for i in dic:
@@ -108,7 +108,12 @@ def get_table(dic):
                 l.append(k)
             table.append(l[:])
             l.clear()
-    print(tabulate(table,tablefmt="grid"))
+
+    
+    print("Type, Option, Model1, Model2, Model3")
+    for i in table:
+        print(', '.join(map(str, i)))
+    # print(tabulate(table,tablefmt="grid"))
 
     
 #########################################################    

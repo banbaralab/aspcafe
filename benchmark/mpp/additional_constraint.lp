@@ -1,2 +1,2 @@
 % Require
-require_v_v("LX","Pnrorama").
+require_v_v("LX","Panorama").

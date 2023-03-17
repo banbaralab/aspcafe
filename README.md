@@ -26,45 +26,26 @@ $ python3 bin/check_ans_opt.py ovm.log
 Optimal: 1
 
 ANSWER: 1
-+--------------+--------------+---+---+---+
-| Drive_Type   | 4WD          | 1 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Drive_Type   | 2WD          | 0 | 1 | 1 |
-+--------------+--------------+---+---+---+
-| Engine       | V4           | 0 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Engine       | V6           | 1 | 1 | 1 |
-+--------------+--------------+---+---+---+
-| Grade        | DX           | 0 | 1 | 0 |
-+--------------+--------------+---+---+---+
-| Grade        | STD          | 1 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Grade        | LX           | 0 | 0 | 1 |
-+--------------+--------------+---+---+---+
-| Sun_Roof     | Nomal        | 0 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Sun_Roof     | Pnrorama     | 1 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Transmission | HEV          | 0 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Transmission | CVT          | 0 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Transmission | 10AT         | 0 | 0 | 1 |
-+--------------+--------------+---+---+---+
-| Transmission | 6MT          | 1 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Transmission | 6AT          | 0 | 1 | 0 |
-+--------------+--------------+---+---+---+
-| Transmission | 5MT          | 0 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Tire         | 18_inch_Tire | 0 | 0 | 1 |
-+--------------+--------------+---+---+---+
-| Tire         | 15_inch_Tire | 0 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Tire         | 17_inch_Tire | 0 | 1 | 0 |
-+--------------+--------------+---+---+---+
-| Tire         | 16_inch_Tire | 1 | 0 | 0 |
-+--------------+--------------+---+---+---+
+Type, Option, Model1, Model2, Model3
+Grade, LX, 0, 0, 1
+Grade, DX, 0, 1, 0
+Grade, STD, 1, 0, 0
+Sun_Roof, Panorama, 1, 0, 0
+Sun_Roof, Nomal, 0, 0, 0
+Transmission, 6MT, 1, 0, 0
+Transmission, 10AT, 0, 0, 1
+Transmission, HEV, 0, 0, 0
+Transmission, 6AT, 0, 1, 0
+Transmission, 5MT, 0, 0, 0
+Transmission, CVT, 0, 0, 0
+Engine, V6, 1, 1, 1
+Engine, V4, 0, 0, 0
+Tire, 18_inch_Tire, 0, 0, 1
+Tire, 15_inch_Tire, 0, 0, 0
+Tire, 16_inch_Tire, 1, 0, 0
+Tire, 17_inch_Tire, 0, 1, 0
+Drive_Type, 2WD, 0, 1, 1
+Drive_Type, 4WD, 1, 0, 0
 
 ** Check Cafe
 
@@ -90,50 +71,31 @@ The clingo's option `--opt-mode=optN` allows for enumerating optima.
 The bellow command finds an optimal solution of a Multi-objective CAFE Problem.
 The asprin's option `-n 0` allows for enumerating optima.
 ```
-$ asprin aspcafe_extended.lp benchmark/tableFE.lp benchmark/tableSV.lp benchmark/ovm.lp --config=trendy -c t=85 -n 0 > ovm_pareto.log
+$ asprin aspcafe_extended.lp benchmark/tableFE.lp benchmark/tableSV.lp benchmark/ovm.lp --config=trendy -c t=85 > ovm_pareto.log
 $ python3 bin/check_ans_opt.py ovm_pareto.log
 Optimal: 1
 
 ANSWER: 1
-+--------------+--------------+---+---+---+
-| Grade        | STD          | 1 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Grade        | DX           | 0 | 1 | 0 |
-+--------------+--------------+---+---+---+
-| Grade        | LX           | 0 | 0 | 1 |
-+--------------+--------------+---+---+---+
-| Transmission | 10AT         | 0 | 0 | 1 |
-+--------------+--------------+---+---+---+
-| Transmission | HEV          | 0 | 1 | 0 |
-+--------------+--------------+---+---+---+
-| Transmission | CVT          | 0 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Transmission | 6AT          | 1 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Transmission | 6MT          | 0 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Transmission | 5MT          | 0 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Tire         | 18_inch_Tire | 0 | 0 | 1 |
-+--------------+--------------+---+---+---+
-| Tire         | 16_inch_Tire | 1 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Tire         | 15_inch_Tire | 0 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Tire         | 17_inch_Tire | 0 | 1 | 0 |
-+--------------+--------------+---+---+---+
-| Engine       | V4           | 0 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Engine       | V6           | 1 | 1 | 1 |
-+--------------+--------------+---+---+---+
-| Drive_Type   | 2WD          | 1 | 1 | 0 |
-+--------------+--------------+---+---+---+
-| Drive_Type   | 4WD          | 0 | 0 | 1 |
-+--------------+--------------+---+---+---+
-| Sun_Roof     | Pnrorama     | 0 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Sun_Roof     | Nomal        | 0 | 0 | 0 |
-+--------------+--------------+---+---+---+
+Type, Option, Model1, Model2, Model3
+Drive_Type, 2WD, 1, 1, 0
+Drive_Type, 4WD, 0, 0, 1
+Transmission, 6MT, 0, 0, 0
+Transmission, 5MT, 0, 0, 0
+Transmission, 10AT, 0, 0, 1
+Transmission, CVT, 0, 0, 0
+Transmission, 6AT, 1, 0, 0
+Transmission, HEV, 0, 1, 0
+Sun_Roof, Nomal, 0, 0, 0
+Sun_Roof, Panorama, 0, 0, 0
+Tire, 16_inch_Tire, 1, 0, 0
+Tire, 17_inch_Tire, 0, 1, 0
+Tire, 18_inch_Tire, 0, 0, 1
+Tire, 15_inch_Tire, 0, 0, 0
+Engine, V6, 1, 1, 1
+Engine, V4, 0, 0, 0
+Grade, DX, 0, 1, 0
+Grade, LX, 0, 0, 1
+Grade, STD, 1, 0, 0
 
 ** Check Cafe
 
@@ -151,58 +113,39 @@ ANSWER: 1
   Total Sales = 5525
   Total Options = 12
   Perturbation = 0 (Changed_VP = 0, Added_VP = 0)
-(5525,12,0)
 ```
 
 #### Multi-objective CAFE Problem considering Minimal Perturbation
 The bellow command finds an optimal solution of a Multi-objective CAFE Problem
 considering Minimal Perturbation.
 The asprin's option `-n 0` allows for enumerating optima.
+
 ```
 $ asprin aspcafe_mpp.lp benchmark/mpp/legacy_ovm.lp benchmark/mpp/additional_constraint.lp benchmark/ovm.lp benchmark/tableFE.lp benchmark/tableSV.lp --config=trendy -c t=90 > ovm_mpp.log
 $ python3 bin/check_ans_opt.py ovm_mpp.log
 Optimal: 1
 
 ANSWER: 1
-+--------------+--------------+---+---+---+
-| Sun_Roof     | Pnrorama     | 0 | 0 | 1 |
-+--------------+--------------+---+---+---+
-| Sun_Roof     | Nomal        | 0 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Engine       | V6           | 0 | 1 | 1 |
-+--------------+--------------+---+---+---+
-| Engine       | V4           | 1 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Transmission | HEV          | 0 | 1 | 0 |
-+--------------+--------------+---+---+---+
-| Transmission | 6MT          | 0 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Transmission | 10AT         | 0 | 0 | 1 |
-+--------------+--------------+---+---+---+
-| Transmission | CVT          | 0 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Transmission | 6AT          | 0 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Transmission | 5MT          | 1 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Grade        | STD          | 1 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Grade        | DX           | 0 | 1 | 0 |
-+--------------+--------------+---+---+---+
-| Grade        | LX           | 0 | 0 | 1 |
-+--------------+--------------+---+---+---+
-| Drive_Type   | 4WD          | 0 | 0 | 1 |
-+--------------+--------------+---+---+---+
-| Drive_Type   | 2WD          | 1 | 1 | 0 |
-+--------------+--------------+---+---+---+
-| Tire         | 17_inch_Tire | 0 | 1 | 0 |
-+--------------+--------------+---+---+---+
-| Tire         | 18_inch_Tire | 0 | 0 | 1 |
-+--------------+--------------+---+---+---+
-| Tire         | 16_inch_Tire | 1 | 0 | 0 |
-+--------------+--------------+---+---+---+
-| Tire         | 15_inch_Tire | 0 | 0 | 0 |
-+--------------+--------------+---+---+---+
+Type, Option, Model1, Model2, Model3
+Engine, V4, 1, 0, 0
+Engine, V6, 0, 1, 1
+Drive_Type, 2WD, 1, 1, 0
+Drive_Type, 4WD, 0, 0, 1
+Sun_Roof, Panorama, 0, 0, 1
+Sun_Roof, Nomal, 0, 0, 0
+Tire, 16_inch_Tire, 1, 0, 0
+Tire, 18_inch_Tire, 0, 0, 1
+Tire, 15_inch_Tire, 0, 0, 0
+Tire, 17_inch_Tire, 0, 1, 0
+Grade, LX, 0, 0, 1
+Grade, DX, 0, 1, 0
+Grade, STD, 1, 0, 0
+Transmission, 6MT, 0, 0, 0
+Transmission, 10AT, 0, 0, 1
+Transmission, 5MT, 1, 0, 0
+Transmission, HEV, 0, 1, 0
+Transmission, CVT, 0, 0, 0
+Transmission, 6AT, 0, 0, 0
 
 ** Check Cafe
 
@@ -222,3 +165,4 @@ ANSWER: 1
   Perturbation = 4 (Changed_VP = 2, Added_VP = 1)
 (3076,14,4)
 ```
+

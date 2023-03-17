@@ -15,7 +15,7 @@ v_def("LX","Grade", 580).
 
 vp_def("Sun_Roof").
 v_def("Nomal","Sun_Roof",35).
-v_def("Pnrorama","Sun_Roof",70).
+v_def("Panorama","Sun_Roof",70).
 
 vp_def("Tire").
 v_def("15_inch_Tire","Tire",90).
