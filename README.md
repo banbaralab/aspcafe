@@ -17,7 +17,8 @@ DOI: [10.1007/978-3-031-24841-2_15](http://dx.doi.org/10.1007/978-3-031-24841-2_
 ### Sample session
 
 #### Mono-objective CAFE Problem
-The bellow command finds an optimal solution of a Mono-objective CAFE Problem.
+The bellow command finds an optimal solution of a Mono-objective CAFE Problem:
+the instance is ovm.lp and the CAFE standard value is 8.5km/L.
 The clingo's option `--opt-mode=optN` allows for enumerating optima.
 
 ```
@@ -68,7 +69,8 @@ Drive_Type, 4WD, 1, 0, 0
 The clingo's option `--opt-mode=optN` allows for enumerating optima.
   
 #### Multi-objective CAFE Problem
-The bellow command finds an optimal solution of a Multi-objective CAFE Problem.
+The bellow command finds an optimal solution of a Multi-objective CAFE Problem:
+the instance is ovm.lp and the CAFE standard value is 8.5km/L.
 The asprin's option `-n 0` allows for enumerating optima.
 ```
 $ asprin aspcafe_extended.lp benchmark/tableFE.lp benchmark/tableSV.lp benchmark/ovm.lp --config=trendy -c t=85 > ovm_pareto.log
@@ -116,8 +118,8 @@ Grade, STD, 1, 0, 0
 ```
 
 #### Multi-objective CAFE Problem considering Minimal Perturbation
-The bellow command finds an optimal solution of a Multi-objective CAFE Problem
-considering Minimal Perturbation.
+The bellow command finds an optimal solution of a Multi-objective CAFE Problem considering Minimal Perturbation:
+the original solution is legacy\_ovm.lp, the new instance is a set of ovm.lp and additional\_constraint.lp and the CAFE standard value is 9.0km/L.
 The asprin's option `-n 0` allows for enumerating optima.
 
 ```
