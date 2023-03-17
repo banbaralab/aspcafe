@@ -356,9 +356,9 @@ def check_require(list,vp_list,dic):
 parser = argparse.ArgumentParser()
 parser.add_argument('filename')
 parser.add_argument('-c','--check',action="store_true",
-                    help='requireが満たされているかチェックする')
+                    help='check that dependency constraints are satisfied')
 parser.add_argument('-t','--total',action="store_true",
-                    help='目的関数の値のみを出力する')
+                    help='output only the values of objective functions')
 args = parser.parse_args()
 
 fp = open(args.filename,'r')
