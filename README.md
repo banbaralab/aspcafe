@@ -126,6 +126,7 @@ CAFE Problem considering Minimal Perturbation, where
 ```
 $ asprin aspcafe_mpp.lp benchmark/mpp/legacy_ovm.lp benchmark/mpp/additional_constraint.lp benchmark/ovm.lp benchmark/tableFE.lp benchmark/tableSV.lp --config=trendy -c t=90 > ovm_mpp.log
 ```
+```
 $ python3 bin/decode.py ovm_mpp.log
 ```
 ```
