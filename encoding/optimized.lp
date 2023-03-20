@@ -23,7 +23,8 @@ lb_iwr(S) :- S = #sum { LB,VP : lb_vp(LB,VP), require_vp(VP) }.
 iwr(S,G) :- S = #sum { IWR,V : v(V,G), v_def(V,_,IWR) },
             LB <= S, S <= UB, lb_iwr(LB), ub_iwr(UB), group(G).
 fe(FE,G) :- iwr(S,G), fe_map(S,FE).
-sv(SV,G) :- iwr(S,G), sv_map(S,SV).
+% sv(SV,G) :- iwr(S,G), sv_map(S,SV).
+sv(SV,G) :- iwr(S,G), S1 = ((S+2)/5)*5, sv_map(S1,SV).
 :- not 0 #sum { (FE-t)*SV,FE,SV,G : fe(FE,G), sv(SV,G) }.
 
 % dependency constraints (requirement)
