@@ -1,5 +1,6 @@
 # aspcafe
-aspcafe is a collection of ASP encodings for solving Vehicle Equipment Specification Problems.
+aspcafe is a collection of ASP encodings for solving
+Vehicle Equipment Specification Problems (CAFE problems, in short).
 
 ### Citing
 
@@ -16,14 +17,13 @@ DOI: [10.1007/978-3-031-24841-2_15](http://dx.doi.org/10.1007/978-3-031-24841-2_
 
 ### Sample session
 
-#### Mono-objective CAFE Problem
-The bellow command finds an optimal solution of a Mono-objective CAFE Problem:
-the instance is ovm.lp and the CAFE standard value is 8.5km/L.
-The clingo's option `--opt-mode=optN` allows for enumerating optima.
-
+#### Mono-objective CAFE Problems
+The following command finds an optimal solution of a mono-objective CAFE Problem, 
+where the CAFE standard value is 8.5km/L.
+The clingo's option `--opt-mode=optN` will allow for enumerating optima as necessary.
 ```
 $ clingo aspcafe_optimized.lp benchmark/tableSV.lp benchmark/tableFE.lp benchmark/ovm.lp --config=trendy -c t=85 > ovm.log
-$ python3 bin/check_ans_opt.py ovm.log
+$ python3 bin/decode.py ovm.log
 Optimal: 1
 
 ANSWER: 1
@@ -66,15 +66,14 @@ Drive_Type, 4WD, 1, 0, 0
   Perturbation = 0 (Changed_VP = 0, Added_VP = 0)
 (4095,0,0)
 ```
-The clingo's option `--opt-mode=optN` allows for enumerating optima.
   
-#### Multi-objective CAFE Problem
-The bellow command finds an optimal solution of a Multi-objective CAFE Problem:
-the instance is ovm.lp and the CAFE standard value is 8.5km/L.
-The asprin's option `-n 0` allows for enumerating optima.
+#### Multi-objective CAFE Problems
+The following command finds a Pareto optimal solution of a multi-objective CAFE Problem,
+where the CAFE standard value is 8.5km/L.
+The asprin's option `-n 0` will allow for enumerating optima as necessary.
 ```
 $ asprin aspcafe_extended.lp benchmark/tableFE.lp benchmark/tableSV.lp benchmark/ovm.lp --config=trendy -c t=85 > ovm_pareto.log
-$ python3 bin/check_ans_opt.py ovm_pareto.log
+$ python3 bin/decode.py ovm_pareto.log
 Optimal: 1
 
 ANSWER: 1
@@ -117,14 +116,16 @@ Grade, STD, 1, 0, 0
   Perturbation = 0 (Changed_VP = 0, Added_VP = 0)
 ```
 
-#### Multi-objective CAFE Problem considering Minimal Perturbation
-The bellow command finds an optimal solution of a Multi-objective CAFE Problem considering Minimal Perturbation:
-the original solution is legacy\_ovm.lp, the new instance is a set of ovm.lp and additional\_constraint.lp and the CAFE standard value is 9.0km/L.
-The asprin's option `-n 0` allows for enumerating optima.
-
+#### Multi-objective CAFE Problems considering Minimal Perturbation
+The following command finds a Pareto optimal solution of a multi-objective
+CAFE Problem considering Minimal Perturbation, where
+- `legacy_ovm.lp` is an initial solution of the original problem `ovm.lp`
+   with the CAFE standard value is 8.5km/L,
+- a new problem is an extension of `ovm.lp` with `additional_constraint.lp`,
+  and the CAFE standard value is changed to 9.0km/L.
 ```
 $ asprin aspcafe_mpp.lp benchmark/mpp/legacy_ovm.lp benchmark/mpp/additional_constraint.lp benchmark/ovm.lp benchmark/tableFE.lp benchmark/tableSV.lp --config=trendy -c t=90 > ovm_mpp.log
-$ python3 bin/check_ans_opt.py ovm_mpp.log
+$ python3 bin/decode.py ovm_mpp.log
 Optimal: 1
 
 ANSWER: 1
