@@ -1,12 +1,14 @@
-% Maximize sum of SV.
+% maximize the expected sales volume
 #preference (max_sv, more(weight)) { SV,G :: sv(SV,G) }.
 
-% Minimize the number of V's.
+% minimize the number of equipment options
 used_v(V) :- v(V,G).
 #preference (min_op, less(weight)) { 1,V :: used_v(V) }.
  
-% pareto of max_sv and min_op
+% Pareto optimization
 #preference (all, pareto) { **max_sv; **min_op}.
+
+% optimization statement
 #optimize(all).
 
 
