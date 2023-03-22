@@ -1,58 +1,6 @@
-#########################################################
-#
-# 実験結果の.logファイルを読み込み，解集合の正しさをチェックする 
-# オプションに"--opt-mode=optN"を用いているとき複数解を列挙する
-#
-# 2020/11/4 asprinにも対応
-# 2022/11/7 最小変化問題に対応，目的関数の値のみを表示するオプションを追加
-#########################################################
-
 import sys
 import re
 import argparse
-from tabulate import tabulate
-
-
-def check_ans(lines):
-    for i in lines:
-        if(re.match('UNSATISFIABLE',i)):
-            print("UNSATISFIABLE")
-            exit()
- 
-#########################################################
-# logファイルから最適解の個数を調べる
-#########################################################
-def get_optimal(lines):
-    for i in lines:
-        opt = re.match('\s+Optimal\s+:\s(\d+)',i)
-        if(opt):
-            return opt.group(1)
-    return 1
-
-#########################################################
-# logファイルから解集合をリストとして抽出する
-# clingo では"Answer: ans_num"の次の行に解集合が出力される
-# asprin では"OPTIMUM FOUND"の前の行に解集合が出力される
-#########################################################
-def get_list(lines,ans_num):
-    if(re.match('clingo',lines[0])):
-        for i in range(len(lines)):
-            if (re.match('Answer:\s%d' % ans_num,lines[i])):
-                list = [x for x in lines[i+1].split()]
-                return list
-    elif(re.match('asprin',lines[0])):
-            count = 0
-            for i in range(len(lines)):
-                if (re.match('OPTIMUM\sFOUND',lines[i])):
-                    if(count == ans_num-1):
-                        list = [x for x in lines[i-1].split()]
-                        return list
-                    else:
-                        count+=1
-    else:
-        print("Error:solver is wrong.")
-        sys.exit()
-                    
 
 
 #########################################################
@@ -116,34 +64,7 @@ def get_table(dic):
     # print(tabulate(table,tablefmt="grid"))
 
     
-#########################################################    
-# 同じVPで選択されるVはただ一つであることを確認
-# (同じVP内で複数Vが真になる場合ERROR．VPが真でVがひとつも真ではない場合も考えた方が良い？)
-# 引数: 辞書dic
-#########################################################
-def only_one_V(dic,vp_list):
-    print("\n** Check only one\n")
-    for g in range(G):
-        eflag = 0
-        print("  Group%d: " % (g+1))
-        for i in dic:
-            flag = 0
-            for j in dic[i]:
-                if(vp_d[i][j][g] == 1):
-                    flag += 1
-            if(i in vp_list[g]):
-                if (flag != 1):
-                    print("    ERROR_TRUE_VP: "+str(i))
-                    eflag += 1
-            else:
-                if (flag > 0):
-                    print("    ERROR_FALSE_VP: "+str(i))
-                    eflag += 1
-                
-        if (eflag == 0):
-            print("    OK!")
-    
-            
+
 #########################################################                
 # Cafe規制の値,販売台数を表示
 # 引数: 解集合リストlist
@@ -207,7 +128,37 @@ def check_cafe(list):
     print('  Total Options = %d' % used_v)
     print('  Perturbation = %d (Changed_VP = %d, Added_VP = %d)' % (perturbation, changed_vp, added_vp))
     # print('  Total Changed_V = %d' % changed_v)
-    print('(%d,%d,%d)' % (svsum, used_v, perturbation))
+    print('(%d,%d,%d)\n' % (svsum, used_v, perturbation))
+
+
+#########################################################    
+# 同じVPで選択されるVはただ一つであることを確認
+# (同じVP内で複数Vが真になる場合ERROR．VPが真でVがひとつも真ではない場合も考えた方が良い？)
+# 引数: 辞書dic
+#########################################################
+def only_one_V(dic,vp_list):
+    print("\n** Check only one\n")
+    for g in range(G):
+        eflag = 0
+        print("  Group%d: " % (g+1))
+        for i in dic:
+            flag = 0
+            for j in dic[i]:
+                if(dic[i][j][g] == 1):
+                    flag += 1
+            if(i in vp_list[g]):
+                if (flag != 1):
+                    print("    ERROR_TRUE_VP: "+str(i))
+                    eflag += 1
+            else:
+                if (flag > 0):
+                    print("    ERROR_FALSE_VP: "+str(i))
+                    eflag += 1
+                
+        if (eflag == 0):
+            print("    OK!")
+
+
 #########################################################
 # requireのチェック
 # 引数: 解集合リストlist, 辞書dic
@@ -342,44 +293,69 @@ def check_require(list,vp_list,dic):
                                     eflag = 1
         if (eflag == 0):
             print('    OK!')
+    
+#########################################################    
+def answer_set(lines):
+    for i in range(len(lines)):
+        if (re.match('Answer:\s\d+', lines[i])):
+            print(lines[i],end='')
+            if not (re.match('Answer:\s\d+', lines[i+1]) or
+            re.match('\W+', lines[i+1])):
+                answer_set = [x for x in lines[i+1].split()]
+                vp_d = get_vp_dic(answer_set)
+                vp_list = get_vp_list(answer_set)
+                if not (args.total): 
+                    get_table(vp_d)  #表作成
+                check_cafe(answer_set)
+                # オプションによりrequireの確認
+                if(args.check):
+                    only_one_V(vp_d,vp_list)
+                    check_require(answer_set,vp_list,vp_d)
+            
+        elif (re.match('OPTIMUM\sFOUND', lines[i])):
+            print('OPTIMUM FOUND\n')
+        elif (re.match('SATISFIABLE', lines[i])):
+            print('SATISFIABLE\n')
+        elif (re.match('UNSATISFIABLE', lines[i])):
+            print('UNSATISFIABLE\n')
+        elif (re.match('UNKNOWN', lines[i])):
+            print('UNKNOWN\n')
+        elif (re.match('INTERRUPTED', lines[i])):
+            print(lines[i],end='')
+        elif (re.match('Models\s+:', lines[i])):
+            print(lines[i],end='')
+        elif (re.match('\s+Optimum\s+:', lines[i])):
+            print(lines[i],end='')
+        elif (re.match('\s+Optimal\s+:', lines[i])):
+            print(lines[i],end='')
+        elif (re.match('Optimization\s:', lines[i])):            
+            print(lines[i],end='')
+        elif (re.match('Calls\s+:', lines[i])):
+            print(lines[i],end='')
+        elif (re.match('Time\s+:', lines[i])):
+            print(lines[i],end='')            
+        elif (re.match('CPU\sTime\s+:', lines[i])):
+            print(lines[i],end='')            
 
 
 
-
-
-#########################################################
-# main
-#########################################################
 
 
 # option
 parser = argparse.ArgumentParser()
-parser.add_argument('filename')
+parser.add_argument('file',
+                    help='output file with option "--quiet=1,0" for clingo or "--quiet 1" for asprin')
 parser.add_argument('-c','--check',action="store_true",
                     help='check that dependency constraints are satisfied')
 parser.add_argument('-t','--total',action="store_true",
                     help='output only the values of objective functions')
 args = parser.parse_args()
 
-fp = open(args.filename,'r')
+fp = open(args.file,'r')
 lines = fp.readlines()
 G = 3
-check_ans(lines)
-optimal = int(get_optimal(lines))
-print('Optimal: '+str(optimal))
-for i in range(1,optimal+1):
-    print('\nANSWER: '+str(i))
-    ans_list = get_list(lines,i)
-    vp_d = get_vp_dic(ans_list)
-    vp_list = get_vp_list(ans_list)
-    if not (args.total): 
-        get_table(vp_d)  #表作成
-    
-    # オプションによりrequireの確認
-    if(args.check):
-        only_one_V(vp_d,vp_list)
-        check_require(ans_list,vp_list,vp_d)
-    check_cafe(ans_list)
-    
-    
-fp.close()        
+
+answer_set(lines)
+
+fp.close()
+
