@@ -1,0 +1,34 @@
+### For Makefile
+Makefile
+
+### For Mac
+.DS_store
+
+### For LaTeX
+/**/auto/
+*.dvi
+*.aux
+*.nav
+*.out
+*.snm
+*.toc
+*.bbl
+*.blg
+*.lol
+*.lot
+*.lof
+*.log
+*.vrb
+#*.pdf
+
+### For pdf
+#!/**/reference/*.pdf
+#!/**/figs/**/*.pdf
+#!/**/pptx/**/*.pdf
+
+### emacs オートセーブ
+*.*~
+
+
+
+
