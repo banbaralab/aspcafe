@@ -10,7 +10,7 @@ Vehicle Equipment Specification Problems (CAFE problems, in short).
 
 ### CITING
 
-R.Takeuchi, M.Banbara, N.Tamura, and T.Schaub.
+Raito Takeuchi, Mutsunori Banbara, Naoyuki Tamura, and Torsten Schaub. 
 Solving Vehicle Equipment Specification Problems with Answer Set Programming.
 Proceedings of the 25th International Symposium on Practical Aspects of Declarative Languages
 (PADL 2023), LNCS Vol.13880, pp.232–249, 2023.
@@ -206,7 +206,6 @@ CPU Time     : 0.472s
 ### LICENSE
 
 This software is distributed under [the BSD 3-Clause License](https://opensource.org/license/bsd-3-clause/).
-
 
 ### AUTHORS
 - Raito Takeuchi and Mutsunori Banbara
